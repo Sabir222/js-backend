@@ -18,10 +18,8 @@ const users: User[] = [
   },
 ];
 
-const filterUsers = (name: string, age: number) => {
+export const filterUsers = (name: string, age: number) => {
   return users.filter((user) => {
     return user.age === age && user.name === name;
   });
 };
-
-export default filterUsers;

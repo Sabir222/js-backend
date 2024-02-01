@@ -1,16 +1,22 @@
+import { Router } from "express";
 import { Request, Response, NextFunction } from "express";
-import filterUsers from "../Controllers/userControllers";
+import { filterUsers } from "../Controllers/userControllers";
+import { addUser, getUsers } from "../queries/userQueries";
 
-const getUser = (req: Request, res: Response, next: NextFunction) => {
-  const { age, name } = req.query;
-  if (!age || !name) {
-    res.status(400).send("Bad Request");
-  }
+const router = Router();
 
-  const parsedAge = parseInt(age as string);
-  const user = filterUsers(name as string, parsedAge);
+router.get("/", getUsers);
+router.post("/", addUser);
+// router.get("/", (req: Request, res: Response, next: NextFunction) => {
+//   const { age, name } = req.query;
+//   if (!age || !name) {
+//     res.status(400).send("Bad Request");
+//   }
 
-  res.send(user);
-};
+//   const parsedAge = parseInt(age as string);
+//   const user = filterUsers(name as string, parsedAge);
 
-export default getUser;
+//   res.send(user);
+// });
+
+export default router;
