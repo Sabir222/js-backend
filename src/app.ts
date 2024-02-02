@@ -2,9 +2,9 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import userRoute from "./Routes/userRoute";
+import cookieParser from "cookie-parser";
 
 const app: Application = express();
-app.use(express.json());
 const PORT = 3000;
 
 // const corsOptions = {
@@ -13,9 +13,10 @@ const PORT = 3000;
 //   credentials: true, // Allow credentials
 //   optionsSuccessStatus: 204,
 // };
-
+app.use(cookieParser());
 app.use(cors());
 app.use(helmet());
+app.use(express.json());
 
 app.use("/api/v1/users", userRoute);
 

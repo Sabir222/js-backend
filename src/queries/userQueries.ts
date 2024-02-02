@@ -10,18 +10,24 @@ export const getUsers = (req: Request, res: Response) => {
 };
 
 export const addUser = (req: Request, res: Response) => {
-  const userData = req.body;
+  const { fullName, email, hashedPassword } = req.body;
 
-  const query = {
-    text: "INSERT INTO users(user_id, username, email) VALUES($1, $2, $3)",
-    values: [userData.user_id, userData.username, userData.email],
-  };
+  if (!fullName || !email || !hashedPassword) {
+    res.status(500).send("data missing try again please !");
+  } else {
+    const query = {
+      text: "INSERT INTO users(full_name, email, hashed_password) VALUES($1, $2, $3)",
+      values: [fullName, email, hashedPassword],
+    };
 
-  pool.query(query, (error, results) => {
-    if (error)
-      res
-        .status(500)
-        .send("Something wrong happened while trying to add a user!");
-    res.status(201).send(`User added with ID: ${userData.user_id}`);
-  });
+    pool.query(query, (error, results) => {
+      if (error) {
+        return res
+          .status(500)
+          .send("Something wrong happened while trying to add a user!");
+      } else {
+        res.status(201).send(`User added successfully`);
+      }
+    });
+  }
 };
