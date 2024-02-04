@@ -1,9 +1,12 @@
-# docker commands
+### docker commands
 
-docker exec -it backend-database bash
-psql -U postgres // to enter the batabase
+```
+docker ps -a // list docker containers
 
+docker start docker <docker container name> // start the docker db
 
+docker exec -it backend-database bash // open docker terminal
 
-### create a database 
-CREATE DATABASE your_new_database;
+psql -U postgres // to enter the database
+
+```
