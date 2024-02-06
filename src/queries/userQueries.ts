@@ -1,7 +1,9 @@
 import { QueryResult } from "pg";
 import { Request, Response, NextFunction } from "express";
+import { validationResult } from "express-validator";
 
 import pool from "../db";
+import { hashPassword } from "../utils/hashPassword";
 
 export type userData = {
   email: string;
@@ -44,14 +46,20 @@ export const getUsers = (req: Request, res: Response) => {
 };
 
 export const addUser = (req: Request, res: Response) => {
-  const { fullName, email, hashedPassword } = req.body;
-
-  if (!fullName || !email || !hashedPassword) {
+  const { fullName, email, password } = req.body;
+  const errors = validationResult(req); // check for express validator errors
+  // hashing password
+  const hashedPassword = hashPassword(password);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  } else if (!fullName || !email || !hashedPassword) {
     res.status(500).send("data missing try again please !");
   } else {
+    const lowerCaseName = fullName.toLowerCase();
+    const lowerCaseEmail = email.toLowerCase();
     const query = {
       text: "INSERT INTO users(full_name, email, hashed_password) VALUES($1, $2, $3)",
-      values: [fullName, email, hashedPassword],
+      values: [lowerCaseName, lowerCaseEmail, hashedPassword],
     };
 
     pool.query(query, (error, results) => {

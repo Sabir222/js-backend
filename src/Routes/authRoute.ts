@@ -8,13 +8,27 @@ router.post(
   "/",
   passport.authenticate("local"),
   (req: Request, res: Response) => {
-    res.sendStatus(200);
+    return req.user
+      ? res.status(200).send(req.user)
+      : res.send("user not auth");
   }
 );
 
 router.get("/status", (req: Request, res: Response) => {
-  console.log(req.session);
   return req.user ? res.send(req.user) : res.send("user not auth");
+});
+
+router.get("/logout", (req: Request, res: Response) => {
+  if (!req.user) {
+    return res.send("user not auth");
+  } else {
+    req.logout((err) => {
+      if (err) return res.sendStatus(400);
+      console.log("logged out !");
+    });
+
+    res.send("user logout");
+  }
 });
 
 export default router;

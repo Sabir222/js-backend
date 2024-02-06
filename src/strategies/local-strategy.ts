@@ -1,10 +1,10 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { getUserByEmail, getUserById, userData } from "../queries/userQueries";
+import { getUserByEmail, getUserById } from "../queries/userQueries";
+import { comparePassword } from "../utils/hashPassword";
 
 //this f(x) is responsible for storing the user object in a session
 passport.serializeUser((user: any, done) => {
-  console.log(user);
   done(null, user.user_id);
 });
 
@@ -35,8 +35,8 @@ export default passport.use(
       }
 
       const user = result.rows[0];
-
-      if (password !== user.hashed_password) {
+      //password !== user.hashed_password
+      if (!comparePassword(password, user.hashed_password)) {
         throw new Error("Password incorrect!");
         // return done(null, false, { message: "Invalid credentials" });
       }
