@@ -1,10 +1,12 @@
-import { Pool, QueryResult } from "pg";
+import { Pool } from "pg";
+import dotenv from "dotenv";
+dotenv.config();
 
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "backenddb",
-  password: "Sabir10win@@x",
+  password: process.env.DBPASSWORD,
   port: 5432,
 });
 
