@@ -48,7 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/v1/users", userRoute);
-app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/auth/login", authRoute);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);

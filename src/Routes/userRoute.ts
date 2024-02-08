@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/", getUsers);
 router.post(
-  "/",
+  "/register",
   [
     body("email")
       .trim()
