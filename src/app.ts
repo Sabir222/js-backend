@@ -10,7 +10,7 @@ import pool from "./db";
 //routes
 import userRoute from "./Routes/userRoute";
 import authRoute from "./Routes/authRoute";
-
+import friendRoute from "./Routes/friendRoute";
 dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 5000;
@@ -49,6 +49,7 @@ app.use(passport.session());
 
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth/login", authRoute);
+app.use("/api/v1/friend", friendRoute);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);

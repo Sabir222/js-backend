@@ -1,4 +1,4 @@
-import { getUserByEmail } from "../queries/userQueries";
+import { getUserByEmail } from "../controllers/userQueries";
 
 describe("get users", () => {
   it("should  get user by email", () => {

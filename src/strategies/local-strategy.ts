@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { getUserByEmail, getUserById } from "../queries/userQueries";
+import { getUserByEmail, getUserById } from "../controllers/userQueries";
 import { comparePassword } from "../utils/hashPassword";
 
 //this f(x) is responsible for storing the user object in a session

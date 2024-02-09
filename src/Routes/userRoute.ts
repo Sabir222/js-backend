@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { Request, Response, NextFunction } from "express";
-import { addUser, getUsers } from "../queries/userQueries";
+// import { Request, Response, NextFunction } from "express";
+import { addUser, getUsers } from "../controllers/userQueries";
 import { body } from "express-validator";
 
 const router = Router();
