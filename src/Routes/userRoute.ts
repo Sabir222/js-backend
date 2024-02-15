@@ -1,6 +1,6 @@
 import { Router } from "express";
 // import { Request, Response, NextFunction } from "express";
-import { addUser, getUsers } from "../controllers/userQueries";
+import { addUser, getUsers, searchUser } from "../controllers/userQueries";
 import { body } from "express-validator";
 
 const router = Router();
@@ -22,5 +22,7 @@ router.post(
   ],
   addUser
 );
+
+router.post("/usersearch", searchUser);
 
 export default router;
